@@ -14,6 +14,6 @@ tools,auto-cpufreq,auto-cpufreq,AdnanHodzic,v2.6.0,release,master
 tools,yazi,yazi,sxyazi,v25.5.31,release,main
 tools,ghostty,ghostty,ghostty-org,v1.1.3,tag,main
 tools,scrcpy,scrcpy,Genymobile,v3.3.1,release,master
-lost,eza,eza,eza-community,v0.21.6,release,main
+lost,eza,eza,eza-community,v0.22.0,release,main
 tools,resvg,resvg,linebender,v0.45.1,release,main
 lost,rust-starship,starship,starship,v1.23.0,release,master
