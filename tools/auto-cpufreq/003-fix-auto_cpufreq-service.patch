@@ -1,0 +1,20 @@
+diff --git a/scripts/auto-cpufreq.service b/scripts/auto-cpufreq.service
+index 196bae3..355f54e 100644
+--- a/scripts/auto-cpufreq.service
++++ b/scripts/auto-cpufreq.service
+@@ -1,12 +1,12 @@
+ [Unit]
+ Description=auto-cpufreq - Automatic CPU speed & power optimizer for Linux
++After=network.target network-online.target
++Conflicts=power-profiles-daemon.service tuned.service
+ 
+ [Service]
+ Type=simple
+ User=root
+-WorkingDirectory=/opt/auto-cpufreq/venv
+-Environment=PYTHONPATH=/opt/auto-cpufreq
+-ExecStart=/opt/auto-cpufreq/venv/bin/python /opt/auto-cpufreq/venv/bin/auto-cpufreq --daemon
++ExecStart=auto-cpufreq --daemon
+ Restart=on-failure
+ 
+ [Install]

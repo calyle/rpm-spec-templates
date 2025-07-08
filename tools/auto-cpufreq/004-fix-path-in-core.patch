@@ -1,0 +1,113 @@
+diff --git a/auto_cpufreq/core.py b/auto_cpufreq/core.py
+index f03e7de..23ad02c 100755
+--- a/auto_cpufreq/core.py
++++ b/auto_cpufreq/core.py
+@@ -23,14 +23,14 @@ filterwarnings("ignore")
+ 
+ # add path to auto-cpufreq executables for GUI
+ if "PATH" in os.environ:
+-    os.environ["PATH"] += os.pathsep + "/usr/local/bin"
++    os.environ["PATH"] += os.pathsep + "/usr/bin"
+ else:
+-    os.environ["PATH"] = "/usr/local/bin"
++    os.environ["PATH"] = "/usr/bin"
+ 
+ # ToDo:
+ # - replace get system/CPU load from: psutil.getloadavg() | available in 5.6.2)
+ 
+-SCRIPTS_DIR = Path("/usr/local/share/auto-cpufreq/scripts/")
++SCRIPTS_DIR = Path("/usr/share/auto-cpufreq/scripts/")
+ CPUS = os.cpu_count()
+ 
+ 
+@@ -280,16 +280,16 @@ def cpufreqctl():
+     """
+     deploy cpufreqctl.auto-cpufreq script
+     """
+-    if not (IS_INSTALLED_WITH_SNAP or os.path.isfile("/usr/local/bin/cpufreqctl.auto-cpufreq")):
+-        copy(SCRIPTS_DIR / "cpufreqctl.sh", "/usr/local/bin/cpufreqctl.auto-cpufreq")
+-        call(["chmod", "a+x", "/usr/local/bin/cpufreqctl.auto-cpufreq"])
++    if not (IS_INSTALLED_WITH_SNAP or os.path.isfile("/usr/bin/cpufreqctl.auto-cpufreq")):
++        copy(SCRIPTS_DIR / "cpufreqctl.sh", "/usr/bin/cpufreqctl.auto-cpufreq")
++        call(["chmod", "a+x", "/usr/bin/cpufreqctl.auto-cpufreq"])
+ 
+ def cpufreqctl_restore():
+     """
+     remove cpufreqctl.auto-cpufreq script
+     """
+-    if not IS_INSTALLED_WITH_SNAP and os.path.isfile("/usr/local/bin/cpufreqctl.auto-cpufreq"):
+-        os.remove("/usr/local/bin/cpufreqctl.auto-cpufreq")
++    if not IS_INSTALLED_WITH_SNAP and os.path.isfile("/usr/bin/cpufreqctl.auto-cpufreq"):
++        os.remove("/usr/bin/cpufreqctl.auto-cpufreq")
+ 
+ def footer(l=79): print("\n" + "-" * l + "\n")
+ 
+@@ -316,12 +316,12 @@ def deploy_daemon():
+     auto_cpufreq_stats_path.touch(exist_ok=True)
+ 
+     print("\n* Deploy auto-cpufreq install script")
+-    copy(SCRIPTS_DIR / "auto-cpufreq-install.sh", "/usr/local/bin/auto-cpufreq-install")
+-    call(["chmod", "a+x", "/usr/local/bin/auto-cpufreq-install"])
++    copy(SCRIPTS_DIR / "auto-cpufreq-install.sh", "/usr/bin/auto-cpufreq-install")
++    call(["chmod", "a+x", "/usr/bin/auto-cpufreq-install"])
+ 
+     print("\n* Deploy auto-cpufreq remove script")
+-    copy(SCRIPTS_DIR / "auto-cpufreq-remove.sh", "/usr/local/bin/auto-cpufreq-remove")
+-    call(["chmod", "a+x", "/usr/local/bin/auto-cpufreq-remove"])
++    copy(SCRIPTS_DIR / "auto-cpufreq-remove.sh", "/usr/bin/auto-cpufreq-remove")
++    call(["chmod", "a+x", "/usr/bin/auto-cpufreq-remove"])
+ 
+     # output warning if gnome power profile is running
+     gnome_power_detect_install()
+@@ -331,7 +331,7 @@ def deploy_daemon():
+ 
+     tlp_service_detect() # output warning if TLP service is detected
+ 
+-    call("/usr/local/bin/auto-cpufreq-install", shell=True)
++    call("/usr/bin/auto-cpufreq-install", shell=True)
+ 
+ def deploy_daemon_performance():
+     print("\n" + "-" * 21 + " Deploying auto-cpufreq as a daemon (performance) " + "-" * 22 + "\n")
+@@ -349,10 +349,10 @@ def deploy_daemon_performance():
+     auto_cpufreq_stats_path.touch(exist_ok=True)
+ 
+     print("\n* Deploy auto-cpufreq install script")
+-    copy(SCRIPTS_DIR / "auto-cpufreq-install.sh", "/usr/local/bin/auto-cpufreq-install")
++    copy(SCRIPTS_DIR / "auto-cpufreq-install.sh", "/usr/bin/auto-cpufreq-install")
+ 
+     print("\n* Deploy auto-cpufreq remove script")
+-    copy(SCRIPTS_DIR / "auto-cpufreq-remove.sh", "/usr/local/bin/auto-cpufreq-remove")
++    copy(SCRIPTS_DIR / "auto-cpufreq-remove.sh", "/usr/bin/auto-cpufreq-remove")
+ 
+     # output warning if gnome power profile is running
+     gnome_power_detect_install()
+@@ -361,11 +361,11 @@ def deploy_daemon_performance():
+    
+     tlp_service_detect() # output warning if TLP service is detected
+ 
+-    call("/usr/local/bin/auto-cpufreq-install", shell=True)
++    call("/usr/bin/auto-cpufreq-install", shell=True)
+ 
+ def remove_daemon():
+     # check if auto-cpufreq is installed
+-    if not os.path.exists("/usr/local/bin/auto-cpufreq-remove"):
++    if not os.path.exists("/usr/bin/auto-cpufreq-remove"):
+         print("\nauto-cpufreq daemon is not installed.\n")
+         sys.exit(1)
+ 
+@@ -380,10 +380,13 @@ def remove_daemon():
+     tuned_svc_enable()
+ 
+     # run auto-cpufreq daemon remove script
+-    call("/usr/local/bin/auto-cpufreq-remove", shell=True)
++    call("/usr/bin/auto-cpufreq-remove", shell=True)
+ 
+     # remove auto-cpufreq-remove
+-    os.remove("/usr/local/bin/auto-cpufreq-remove")
++    os.remove("/usr/bin/auto-cpufreq-remove")
++
++    if os.path.exists('/usr/bin/auto-cpufreq-install'):
++        os.remove('/usr/bin/auto-cpufreq-install')
+ 
+     # delete override pickle if it exists
+     if os.path.exists(governor_override_state):  os.remove(governor_override_state)
