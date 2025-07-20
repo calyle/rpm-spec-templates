@@ -98,8 +98,7 @@ cargo license --color never > LICENSE.dependencies
 
 cat << 'EOF' > target/%{pkgname}.sh
 # Activate mise. See https://mise.jdx.dev/installing-mise.html#shells
-[ "$SHELL" == "/bin/bash" ] && eval "$(mise activate bash)"
-[ "$ZSH_NAME" == "zsh" ] && eval "$(mise activate zsh)"
+[[ "$SHELL" =~ "bash" ]] && eval "$(mise activate bash)"
 EOF
 
 cat << 'EOF' > target/%{pkgname}_cf.fish
@@ -141,7 +140,7 @@ touch           %{buildroot}/usr/lib/%{pkgname}/.disable-self-update
 %files fish-setup-file
 %{_sysconfdir}/fish/*
 
-%files setup-file
+%files bash-setup-file
 %{_sysconfdir}/profile.d/*
 
 %changelog
