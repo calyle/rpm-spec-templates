@@ -70,15 +70,15 @@ BuildArch:      noarch
 %description    fish-setup-file
 Fish setup script for %{name}
 
-%package        setup-file
-Summary:        Setup script for %{name}
+%package        bash-setup-file
+Summary:        Bash setup script for %{name}
 Group:          System/Shells
 Requires:       %{name} = %{version}-%{release}
 Requires:       bash
 Supplements:    (%{name} and bash)
 BuildArch:      noarch
 
-%description    setup-file
+%description    bash-setup-file
 Setup script for %{name}
 
 %prep
