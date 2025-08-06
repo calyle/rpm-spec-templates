@@ -95,27 +95,12 @@ CGO_ENABLED=0 go build \
         -s -w -buildid=" \
     ./cmd/sing-box
 
-sed -i "/^\[Service\]$/a StateDirectory=%{name}"    release/config/%{name}.service
-sed -i "/^\[Service\]$/a StateDirectory=%{name}-%i" release/config/%{name}@.service
-sed -i "/^\[Service\]$/a User=%{name}"              release/config/%{name}*.service
-
-echo "u %{name} - \"Sing-box Service\" - -" > "release/config/%{name}.sysusers"
 
 install -d completions
 ./sing-box completion bash > completions/bash
 ./sing-box completion fish > completions/fish
 ./sing-box completion zsh  > completions/zsh
 
-echo -n \
-'// Allow sing-box to set domain and default-route
-polkit.addRule(function(action, subject) {
-    if ((action.id == "org.freedesktop.resolve1.set-domains" ||
-         action.id == "org.freedesktop.resolve1.set-default-route" ||
-         action.id == "org.freedesktop.resolve1.set-dns-servers") &&
-        subject.user == "sing-box") {
-        return polkit.Result.YES;
-    }
-});' > release/config/%{name}.rules
 
 %install
 install -Dsm755 %{name}                           -t %{buildroot}%{_bindir}
