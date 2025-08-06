@@ -127,6 +127,7 @@ install -Dm644 "release/config/%{name}.rules"        %{buildroot}%{_datadir}/pol
 install -Dm644 "completions/bash"                    %{buildroot}%{_datadir}/bash-completion/completions/%{name}.bash
 install -Dm644 "completions/fish"                    %{buildroot}%{_datadir}/fish/vendor_completions.d/%{name}.fish
 install -Dm644 "completions/zsh"                     %{buildroot}%{_datadir}/zsh/site-functions/_%{name}
+install -Dm644 "release/config/sing-box-split-dns.xml" %{buildroot}%{_datadir}/dbus-1/system.d/sing-box-split-dns.conf
 install -dm755 %{buildroot}%{_datadir}/%{name}
 
 
@@ -139,6 +140,7 @@ install -dm755 %{buildroot}%{_datadir}/%{name}
 /usr/lib/sysusers.d/%{name}.conf
 %dir %{_datadir}/polkit-1
 %{_datadir}/polkit-1/rules.d/sing-box.rules
+%{_datadir}/dbus-1/system.d/sing-box-split-dns.conf
 %dir %{_datadir}/%{name}
 
 %files fish-completion
