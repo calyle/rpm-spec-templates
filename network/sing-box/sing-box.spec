@@ -82,7 +82,7 @@ export PATH="$(pwd)/go/bin:$PATH"
 # build stable release
 git checkout main
 
-_tags=with_gvisor,with_quic,with_wireguard,with_utls,with_reality_server,with_clash_api,with_ech,with_acme,with_dhcp
+_tags=with_gvisor,with_quic,with_dhcp,with_wireguard,with_utls,with_acme,with_clash_api,with_tailscale
 CGO_ENABLED=0 go build \
     -v \
     -trimpath \
