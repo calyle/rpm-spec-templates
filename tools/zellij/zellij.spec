@@ -110,6 +110,12 @@ popd
 pushd default-plugins/about
 cargo --offline build --release --target=wasm32-wasip1
 popd
+pushd default-plugins/multiple-select
+cargo --offline build --release --target=wasm32-wasip1
+popd
+pushd default-plugins/share
+cargo --offline build --release --target=wasm32-wasip1
+popd
 
 # Move the results to the place they are expected
 mv -v target/wasm32-wasip1/release/*.wasm zellij-utils/assets/plugins/
