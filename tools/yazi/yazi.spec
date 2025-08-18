@@ -58,20 +58,6 @@ Recommends:     chafa
 %description
 Yazi (means "duck") is a terminal file manager written in Rust, based on non-blocking async I/O. It aims to provide an efficient, user-friendly, and customizable file management experience.
 
-💡 A new article explaining its internal workings: Why is Yazi Fast?
-
-    🚀 Full Asynchronous Support: All I/O operations are asynchronous, CPU tasks are spread across multiple threads, making the most of available resources.
-    💪 Powerful Async Task Scheduling and Management: Provides real-time progress updates, task cancellation, and internal task priority assignment.
-    🖼️ Built-in Support for Multiple Image Protocols: Also integrated with Überzug++, covering almost all terminals.
-    🌟 Built-in Code Highlighting and Image Decoding: Combined with the pre-loading mechanism, greatly accelerates image and normal file loading.
-    🔌 Concurrent Plugin System: UI plugins (rewriting most of the UI), functional plugins (coming soon), custom previewer, and custom preloader; Just some pieces of Lua.
-    🧰 Integration with fd, rg, fzf, zoxide
-    💫 Vim-like input/select component, auto-completion for cd paths
-    🏷️ Multi-Tab Support, Scrollable Preview (for videos, PDFs, archives, directories, code, etc.)
-    🔄 Bulk Renaming, Visual Mode, File Chooser
-    🎨 Theme System, Custom Layouts, Trash Bin, CSI u
-    ... and more!
-
 
 %package        bash-completion
 Summary:        Bash Completion for %{name}
