@@ -35,18 +35,9 @@ BuildRequires:  gcc, curl
 BuildRequires:  ImageMagick
 %endif
 
+%if 0%{?fedora} || 0%{?suse_version}
 Recommends:     ffmpeg
 Recommends:     jq
-%if 0%{?suse_version}
-Recommends:     7zip
-Recommends:     poppler-tools
-Recommends:     fd
-%else
-Recommends:     p7zip
-Recommends:     p7zip-plugins
-Recommends:     poppler-utils
-Recommends:     fd-find
-%endif
 Recommends:     ripgrep
 Recommends:     fzf
 Recommends:     zoxide
@@ -54,6 +45,18 @@ Recommends:     resvg
 Recommends:     ImageMagick
 Recommends:     git
 Recommends:     chafa
+%endif
+%if 0%{?suse_version}
+Recommends:     7zip
+Recommends:     poppler-tools
+Recommends:     fd
+%endif
+%if 0%{?fedora}
+Recommends:     p7zip
+Recommends:     p7zip-plugins
+Recommends:     poppler-utils
+Recommends:     fd-find
+%endif
 
 %description
 Yazi (means "duck") is a terminal file manager written in Rust, based on non-blocking async I/O. It aims to provide an efficient, user-friendly, and customizable file management experience.
