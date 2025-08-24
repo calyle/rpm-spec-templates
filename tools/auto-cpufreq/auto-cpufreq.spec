@@ -29,10 +29,12 @@ BuildRequires:  python3dist(pip)
 BuildRequires:	python3dist(poetry-dynamic-versioning)
 BuildRequires:  python3dist(poetry-core)
 BuildRequires:  git
+%if 0%{?fedora}
 Requires:	python3
 Requires:	dmidecode
-Requires:	python3-inotify, python3-distro, python3-psutil, python3-click, python3-gobject, python3-requests
+Requires:	python3-inotify, python3-distro, python3-psutil, python3-click, python3-gobject, python3-requests, python3-urwid, python3-pyasyncore
 Requires:	cairo, gobject-introspection, cairo-gobject, gtk3
+%endif
 
 %description
 Automatic CPU speed & power optimizer for Linux. Actively monitors laptop battery state, CPU usage, CPU temperature, and system load, ultimately allowing you to improve battery life without making any compromises.
