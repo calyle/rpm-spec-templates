@@ -28,6 +28,9 @@ URL:            https://sing-box.sagernet.org/
 Source0:        %{name}-%{version}.tar.gz
 
 BuildRequires: git, curl, tar
+%if 0%{?fedora} || 0%{?suse_version}
+BuildRequires: systemd-rpm-macros
+%endif
 
 
 %description
@@ -115,6 +118,16 @@ install -Dm644 "completions/zsh"                     %{buildroot}%{_datadir}/zsh
 install -Dm644 "release/config/sing-box-split-dns.xml" %{buildroot}%{_datadir}/dbus-1/system.d/sing-box-split-dns.conf
 install -dm755 %{buildroot}%{_datadir}/%{name}
 
+%if 0%{?fedora} || 0%{suse_version}
+%post
+%systemd_post ${name}.service
+
+%preun
+%systemd_preun %{name}.service
+
+%postun
+%systemd_postun_with_restart %{name}.service
+%endif
 
 %files
 %license LICENSE
