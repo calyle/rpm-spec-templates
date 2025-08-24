@@ -120,7 +120,7 @@ install -dm755 %{buildroot}%{_datadir}/%{name}
 %license LICENSE
 %{_bindir}/%{name}
 %dir %{_sysconfdir}/%{name}
-%{_sysconfdir}/%{name}/*
+%config(noreplace) %{_sysconfdir}/%{name}/config.json
 /usr/lib/systemd/system/%{name}*.service
 /usr/lib/sysusers.d/%{name}.conf
 %dir %{_datadir}/polkit-1
