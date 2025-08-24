@@ -110,6 +110,9 @@ fi
 
 %postun
 %systemd_postun_with_restart %{name}.service
+if [ "$1" -eq 0 ]; then
+  rm -f /usr/bin/cpufreqctl.auto-cpufreq
+fi
 
 
 %files -n %{name} -f %{pyproject_files}
