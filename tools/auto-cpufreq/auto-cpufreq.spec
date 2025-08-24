@@ -98,6 +98,7 @@ install -Dm644 %{SOURCE2}                       -t %{buildroot}%{_datadir}/zsh/s
 install -Dm644 %{SOURCE3}                       -t %{buildroot}%{_datadir}/fish/vendor_completions.d
 
 %post
+%systemd_post ${name}.service
 if [ "$1" -eq 1 ]; then
   echo -e 'Important notice: the daemon installer provided does not work, instead run the following command:\n'
   echo -e 'systemctl enable --now auto-cpufreq\n'
