@@ -118,7 +118,7 @@ install -Dm644 "completions/zsh"                     %{buildroot}%{_datadir}/zsh
 install -Dm644 "release/config/sing-box-split-dns.xml" %{buildroot}%{_datadir}/dbus-1/system.d/sing-box-split-dns.conf
 install -dm755 %{buildroot}%{_datadir}/%{name}
 
-%if 0%{?fedora} || 0%{suse_version}
+%if 0%{?fedora} || 0%{?suse_version}
 %post
 %systemd_post ${name}.service
 
