@@ -5,7 +5,7 @@ tools,usage,usage,jdx,v2.2.2,release,main
 tools,zellij,zellij,zellij-org,v0.43.1,release,main
 tools,wezterm,wezterm,wezterm,bf9a2ae,commit,main
 network,sing-box,sing-box,SagerNet,v1.12.8,release,main
-network,sing-geoip,sing-geoip,SagerNet,20250812,release,main
+network,sing-geoip,sing-geoip,SagerNet,20250912,release,main
 network,sing-geosite,sing-geosite,SagerNet,20250906011216,release,main
 zsh-users,zsh-completions,zsh-completions,zsh-users,b48b5de,commit,master
 lost,neofetch,neofetch,dylanaraps,ccd5d9f,commit,master
