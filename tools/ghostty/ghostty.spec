@@ -135,7 +135,8 @@ This holds the terminfo files for ghostty.
 %autosetup
 
 %build
-zig build %{common_build_flags} --prefix "%{buildroot}%{_prefix}"
+export DESTDIR=%{buildroot}
+zig build %{common_build_flags} --prefix %{_prefix}
 
 #Don't conflict with ncurses-term on F42 and up
 %if 0%{?fedora} >= 42
