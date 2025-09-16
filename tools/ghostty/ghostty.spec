@@ -158,6 +158,10 @@ rm -rf %{buildroot}%{_datadir}/terminfo/g/ghostty
 %{_datadir}/icons/hicolor/32x32@2/apps/com.mitchellh.ghostty.png
 %{_datadir}/icons/hicolor/512x512/apps/com.mitchellh.ghostty.png
 %{_datadir}/icons/hicolor/1024x1024/apps/com.mitchellh.ghostty.png
+%{_datadir}/locale/*/LC_MESSAGES/com.mitchellh.ghostty.mo
+%{_datadir}/dbus-1/services/com.mitchellh.ghostty.service
+%{_datadir}/metainfo/com.mitchellh.ghostty.metainfo.xml
+%{_datadir}/systemd/user/app-com.mitchellh.ghostty.service
 %dir %{_datadir}/icons/hicolor/128x128@2
 %dir %{_datadir}/icons/hicolor/128x128@2/apps
 %dir %{_datadir}/icons/hicolor/16x16@2
