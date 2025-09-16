@@ -35,6 +35,7 @@ BuildRequires:  pkgconfig(libpng)
 BuildRequires:  pkgconfig(ncurses)
 BuildRequires:  pkgconfig(oniguruma)
 BuildRequires:  pkgconfig(zlib)
+BuildRequires:  pkgconfig(gtk4-layer-shell-0)
 BuildRequires:  minisign
 Requires:       ghostty-terminfo = %{version}
 
@@ -134,11 +135,7 @@ This holds the terminfo files for ghostty.
 %autosetup
 
 %build
-zig build %{common_build_flags}
-
-%install
-export DESTDIR=%{buildroot}
-zig build %{common_build_flags} --prefix %{_prefix}
+zig build %{common_build_flags} --prefix "%{buildroot}%{_prefix}"
 
 #Don't conflict with ncurses-term on F42 and up
 %if 0%{?fedora} >= 42
