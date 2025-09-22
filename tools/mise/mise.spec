@@ -22,6 +22,7 @@ Patch0:         mise-fix-metadata-auto.diff
 
 BuildRequires:  clang-devel
 BuildRequires:  pkgconfig(openssl)
+BuildRequires:  cmake
 %if 0%{?suse_version}
 BuildRequires:  curl
 %endif
