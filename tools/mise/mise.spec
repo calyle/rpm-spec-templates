@@ -20,7 +20,11 @@ URL:            https://github.com/jdx/%{pkgname}
 Source0:        %{url}/archive/v%{version}/%{pkgname}-%{version}.tar.gz
 Patch0:         mise-fix-metadata-auto.diff
 
-BuildRequires:  gcc, curl, openssl, openssl-devel, zlib, zlib-devel, perl
+BuildRequires:  clang-devel
+BuildRequires:  pkgconfig(openssl)
+%if 0%{?suse_version}
+BuildRequires:  curl
+%endif
 
 
 %description
