@@ -20,9 +20,10 @@ URL:            https://github.com/jdx/%{pkgname}
 Source0:        %{url}/archive/v%{version}/%{pkgname}-%{version}.tar.gz
 Patch0:         mise-fix-metadata-auto.diff
 
-BuildRequires:  clang-devel
+BuildRequires:  rust
+BuildRequires:  cargo
+BuildRequires:  gcc
 BuildRequires:  pkgconfig(openssl)
-BuildRequires:  cmake
 %if 0%{?suse_version}
 BuildRequires:  curl
 %endif
@@ -95,7 +96,7 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 source "$HOME/.cargo/env"
 cargo install cargo-license
 # build release
-cargo build --release --all-features
+cargo build --profile release --bin mise
 cargo license --color never > LICENSE.dependencies
 ./target/release/%{pkgname} completion zsh  > target/_%{pkgname}
 ./target/release/%{pkgname} completion bash > target/%{pkgname}
@@ -113,6 +114,8 @@ if [ "$MISE_FISH_AUTO_ACTIVATE" != "0" ]
 end
 EOF
 
+# Disable self-update for package manager installation
+touch .disable-self-update
 
 %install
 install -Dspm755 -T target/release/%{pkgname} %{buildroot}%{_bindir}/%{pkgname}
@@ -122,16 +125,15 @@ install -Dpm644  -T target/%{pkgname}         %{buildroot}%{_datadir}/bash-compl
 install -Dpm644  -T target/%{pkgname}.fish    %{buildroot}%{_datadir}/fish/vendor_completions.d/%{pkgname}.fish
 install -Dpm644  -T target/%{pkgname}.sh      %{buildroot}%{_sysconfdir}/profile.d/%{pkgname}.sh
 install -Dpm644  -T target/%{pkgname}_cf.fish %{buildroot}%{_sysconfdir}/fish/conf.d/%{pkgname}.fish
-install -dm755  %{buildroot}/usr/lib/%{pkgname}
-touch           %{buildroot}/usr/lib/%{pkgname}/.disable-self-update
+install -Dpm644  -T .disable-self-update      %{buildroot}%{_libdir}/%{pkgname}/.disable-self-update
 
 
 %files
 %license LICENSE LICENSE.dependencies
 %{_bindir}/%{pkgname}
 %{_mandir}/man1/*
-%dir /usr/lib/%{pkgname}
-/usr/lib/%{pkgname}/.disable-self-update
+%dir %{_libdir}/%{pkgname}
+%{_libdir}/%{pkgname}/.disable-self-update
 
 %files bash-completion
 %{_datadir}/bash-completion/*
