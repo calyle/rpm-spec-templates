@@ -85,7 +85,18 @@ Supplements:    (%{name} and bash)
 BuildArch:      noarch
 
 %description    bash-setup-file
-Setup script for %{name}
+Bash setup script for %{name}
+
+%package        zsh-setup-file
+Summary:        Zsh setup script for %{name}
+Group:          System/Shells
+Requires:       %{name} = %{version}-%{release}
+Requires:       zsh
+Supplements:    (%{name} and zsh)
+BuildArch:      noarch
+
+%description    zsh-setup-file
+Zsh setup script for %{name}
 
 %prep
 %autosetup -p1
@@ -102,9 +113,14 @@ cargo license --color never > LICENSE.dependencies
 ./target/release/%{pkgname} completion bash > target/%{pkgname}
 ./target/release/%{pkgname} completion fish > target/%{pkgname}.fish
 
-cat << 'EOF' > target/%{pkgname}.sh
+cat << 'EOF' > target/%{pkgname}-bash-setup.sh
 # Activate mise. See https://mise.jdx.dev/installing-mise.html#shells
 [[ "$SHELL" =~ "bash" ]] && eval "$(mise activate bash)"
+EOF
+
+cat << 'EOF' > target/%{pkgname}-zsh-setup.sh
+# Activate mise. See https://mise.jdx.dev/installing-mise.html#shells
+[[ "$SHELL" =~ "zsh"  ]] && eval "$(mise activate zsh)"
 EOF
 
 cat << 'EOF' > target/%{pkgname}_cf.fish
@@ -123,9 +139,10 @@ install -Dpm644  -T man/man1/%{pkgname}.1     %{buildroot}%{_mandir}/man1/%{pkgn
 install -Dpm644  -T target/_%{pkgname}        %{buildroot}%{_datadir}/zsh/site-functions/_%{pkgname}
 install -Dpm644  -T target/%{pkgname}         %{buildroot}%{_datadir}/bash-completion/completions/%{pkgname}
 install -Dpm644  -T target/%{pkgname}.fish    %{buildroot}%{_datadir}/fish/vendor_completions.d/%{pkgname}.fish
-install -Dpm644  -T target/%{pkgname}.sh      %{buildroot}%{_sysconfdir}/profile.d/%{pkgname}.sh
 install -Dpm644  -T target/%{pkgname}_cf.fish %{buildroot}%{_sysconfdir}/fish/conf.d/%{pkgname}.fish
 install -Dpm644  -T .disable-self-update      %{buildroot}%{_libdir}/%{pkgname}/.disable-self-update
+install -Dpm644  -T target/%{pkgname}-bash-setup.sh      %{buildroot}%{_sysconfdir}/profile.d/%{pkgname}-bash-setup.sh
+install -Dpm644  -T target/%{pkgname}-zsh-setup.sh       %{buildroot}%{_sysconfdir}/profile.d/%{pkgname}-zsh-setup.sh
 
 
 %files
@@ -148,7 +165,10 @@ install -Dpm644  -T .disable-self-update      %{buildroot}%{_libdir}/%{pkgname}/
 %{_sysconfdir}/fish/*
 
 %files bash-setup-file
-%{_sysconfdir}/profile.d/*
+%{_sysconfdir}/profile.d/%{pkgname}-bash-setup.sh
+
+%files zsh-setup-file
+%{_sysconfdir}/profile.d/%{pkgname}-zsh-setup.sh
 
 %changelog
 * DATE Jo Carllyle <96739684+calyle@users.noreply.github.com>
