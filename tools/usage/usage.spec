@@ -71,6 +71,7 @@ cargo build --release
 ./target/release/%{name} --completions zsh  > target/_%{name}
 ./target/release/%{name} --completions fish > target/%{name}.fish
 
+sed -i '/#compdef/,$!d' target/_%{name}
 
 %install
 install -Dsm755 -T target/release/%{name} %{buildroot}%{_bindir}/%{name}
