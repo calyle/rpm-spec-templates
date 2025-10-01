@@ -102,6 +102,8 @@ cargo license --color never > LICENSE.dependencies
 ./target/release/%{pkgname} completion bash > target/%{pkgname}
 ./target/release/%{pkgname} completion fish > target/%{pkgname}.fish
 
+sed -i '/#compdef/,$!d' target/_%{pkgname}
+
 cat << 'EOF' > target/%{pkgname}.sh
 # Activate mise. See https://mise.jdx.dev/installing-mise.html#shells
 [[ "$SHELL" =~ "bash" ]] && eval "$(mise activate bash)"
