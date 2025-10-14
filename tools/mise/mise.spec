@@ -144,6 +144,9 @@ install -Dpm644  -T .disable-self-update      %{buildroot}%{_libdir}/%{pkgname}/
 install -Dpm644  -T target/%{pkgname}-bash-setup.sh      %{buildroot}%{_sysconfdir}/profile.d/%{pkgname}-bash-setup.sh
 install -Dpm644  -T target/%{pkgname}-zsh-setup.sh       %{buildroot}%{_sysconfdir}/profile.d/%{pkgname}-zsh-setup.sh
 
+%check
+source "$HOME/.cargo/env"
+cargo test
 
 %files
 %license LICENSE LICENSE.dependencies
