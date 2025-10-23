@@ -24,20 +24,18 @@ BuildRequires:  gobject-introspection
 BuildRequires:  pandoc
 BuildRequires:  pkgconfig
 BuildRequires:  zig
-BuildRequires:  zstd
-BuildRequires:  pkgconfig(bzip2)
 BuildRequires:  python3-gobject
 BuildRequires:  pkgconfig(fontconfig)
 BuildRequires:  pkgconfig(freetype2)
 BuildRequires:  pkgconfig(gtk4)
 BuildRequires:  pkgconfig(libadwaita-1)
 BuildRequires:  pkgconfig(libpng)
-BuildRequires:  pkgconfig(ncurses)
 BuildRequires:  pkgconfig(oniguruma)
 BuildRequires:  pkgconfig(zlib)
 BuildRequires:  pkgconfig(gtk4-layer-shell-0)
 BuildRequires:  minisign
 Requires:       ghostty-terminfo = %{version}
+Requires:       ghostty-themes = %{version}
 
 %description
 Ghostty is a fast, feature-rich, and cross-platform terminal
@@ -45,7 +43,6 @@ emulator that uses platform-native UI and GPU acceleration.
 
 %package        bash-completion
 Summary:        Bash Completion for %{name}
-Group:          System/Shells
 Requires:       %{name} = %{version}
 Requires:       bash-completion
 Supplements:    (%{name} and bash-completion)
@@ -56,7 +53,6 @@ Bash command-line completion support for %{name}.
 
 %package        fish-completion
 Summary:        Fish Completion for %{name}
-Group:          System/Shells
 Requires:       %{name} = %{version}
 Requires:       fish
 Supplements:    (%{name} and fish)
@@ -67,7 +63,6 @@ Fish command-line completion support for %{name}.
 
 %package        zsh-completion
 Summary:        Zsh Completion for %{name}
-Group:          System/Shells
 Requires:       %{name} = %{version}
 Requires:       zsh
 Supplements:    (%{name} and zsh)
@@ -76,32 +71,99 @@ BuildArch:      noarch
 %description    zsh-completion
 Zsh command-line completion support for %{name}.
 
-%package doc
-Summary:        Documentation for %{name}
-Group:          Documentation/HTML
+%package        bat
+Summary:        Bat syntax highlighting for %{name} data files
+Requires:       %{name} = %{version}
+Requires:       bat
+Supplements:    (%{name} and bat)
 BuildArch:      noarch
 
-%description doc
+%description    bat
+Optional files for syntax highlighting for %{name} data files in bat.
+
+%package        doc
+Summary:        Documentation for %{name}
+BuildArch:      noarch
+
+%description    doc
 This package provides documentation for %{name}
 
-%package neovim
+%package        bash-shell-integration
+Summary:        Bash shell integration for %{name}
+Requires:       %{name} = %{version}
+Requires:       bash
+Supplements:    (%{name} and bash)
+BuildArch:      noarch
+
+%description    bash-shell-integration
+Bash shell integration for %{name}
+
+%package        elvish-shell-integration
+Summary:        Elvish shell integration for %{name}
+Requires:       %{name} = %{version}
+Requires:       elvish
+Supplements:    (%{name} and elvish)
+BuildArch:      noarch
+
+%description    elvish-shell-integration
+Elvish shell integration for %{name}
+
+%package        fish-shell-integration
+Summary:        Fish shell integration for %{name}
+Requires:       %{name} = %{version}
+Requires:       fish
+Supplements:    (%{name} and fish)
+BuildArch:      noarch
+
+%description    fish-shell-integration
+Fish shell integration for %{name}
+
+%package        zsh-shell-integration
+Summary:        Zsh shell integration for %{name}
+Requires:       %{name} = %{version}
+Requires:       zsh
+Supplements:    (%{name} and zsh)
+BuildArch:      noarch
+
+%description    zsh-shell-integration
+Zsh shell integration for %{name}
+
+%package        themes
+Summary:        Build-in themes for %{name}
+Requires:       %{name} = %{version}
+BuildArch:      noarch
+
+%description    themes
+Build-in themes for %{name}
+
+%package        servicemenu
+Summary:        A custom KDE service menu integration for %{name}
+Requires:       %{name} = %{version}
+Requires:       dolphin
+Supplements:    (%{name} and dolphin)
+BuildArch:      noarch
+
+%description    servicemenu
+A custom KDE service menu integration for %{name}
+
+%package        neovim
 Summary:        Neovim syntax highlighting for %{name} data files
 Requires:       %{name} = %{version}
 Requires:       neovim
 Supplements:    (%{name} and neovim)
 BuildArch:      noarch
 
-%description neovim
+%description    neovim
 Optional files for syntax highlighting for %{name} data files in neovim.
 
-%package vim
+%package        vim
 Summary:        Vim syntax highlighting for %{name} data files
 Requires:       %{name} = %{version}
 Requires:       neovim
 Supplements:    (%{name} and vim)
 BuildArch:      noarch
 
-%description vim
+%description    vim
 Optional files for syntax highlighting for %{name} data files in vim.
 
 %package        nautilus-extension
@@ -119,6 +181,16 @@ BuildArch:      noarch
 
 %description    nautilus-extension
 Nautilus extension for ghostty.
+
+%package        systemd
+Summary:        Systemd unit for %{name}
+Requires:       %{name} = %{version}
+Requires:       systemd
+Supplements:    (%{name} and systemd)
+BuildArch:      noarch
+
+%description    systemd
+Systemd unit for %{name}
 
 %package        terminfo
 Summary:        Terminfo files for ghostty
@@ -162,27 +234,48 @@ rm -rf %{buildroot}%{_datadir}/terminfo/g/ghostty
 %{_datadir}/locale/*/LC_MESSAGES/com.mitchellh.ghostty.mo
 %{_datadir}/dbus-1/services/com.mitchellh.ghostty.service
 %{_datadir}/metainfo/com.mitchellh.ghostty.metainfo.xml
-%{_datadir}/systemd/user/app-com.mitchellh.ghostty.service
-%dir %{_datadir}/icons/hicolor/128x128@2
-%dir %{_datadir}/icons/hicolor/128x128@2/apps
-%dir %{_datadir}/icons/hicolor/16x16@2
-%dir %{_datadir}/icons/hicolor/16x16@2/apps
-%dir %{_datadir}/icons/hicolor/256x256@2
-%dir %{_datadir}/icons/hicolor/256x256@2/apps
-%dir %{_datadir}/icons/hicolor/32x32@2
-%dir %{_datadir}/icons/hicolor/32x32@2/apps
 
 %dir %{_datadir}/ghostty
 %dir %{_datadir}/ghostty/shell-integration
-%{_datadir}/ghostty/shell-integration/elvish/
-%{_datadir}/ghostty/themes/
+%dir %{_datadir}/ghostty/themes
 
+%files bash-completion
+%{_datadir}/bash-completion/completions/ghostty.bash
+
+%files fish-completion
+%{_datadir}/fish/vendor_completions.d/ghostty.fish
+
+%files zsh-completion
+%{_datadir}/zsh/site-functions/_ghostty
+
+%files bat
 %dir %{_datadir}/bat
 %dir %{_datadir}/bat/syntaxes
 %{_datadir}/bat/syntaxes/ghostty.sublime-syntax
 
-%dir %{_datadir}/kio
-%dir %{_datadir}/kio/servicemenus
+%files doc
+%dir %{_datadir}/ghostty/doc
+%{_datadir}/ghostty/doc/ghostty.1.html
+%{_datadir}/ghostty/doc/ghostty.1.md
+%{_datadir}/ghostty/doc/ghostty.5.html
+%{_datadir}/ghostty/doc/ghostty.5.md
+
+%files bash-shell-integration
+%{_datadir}/ghostty/shell-integration/bash
+
+%files elvish-shell-integration
+%{_datadir}/ghostty/shell-integration/elvish
+
+%files fish-shell-integration
+%{_datadir}/ghostty/shell-integration/fish
+
+%files zsh-shell-integration
+%{_datadir}/ghostty/shell-integration/zsh
+
+%files themes
+%{_datadir}/ghostty/themes
+
+%files servicemenu
 %{_datadir}/kio/servicemenus/com.mitchellh.ghostty.desktop
 
 %files nautilus-extension
@@ -193,45 +286,21 @@ rm -rf %{buildroot}%{_datadir}/terminfo/g/ghostty
 %{_datadir}/nvim/site/ftplugin/ghostty.vim
 %{_datadir}/nvim/site/syntax/ghostty.vim
 %{_datadir}/nvim/site/compiler/ghostty.vim
-%dir %{_datadir}/nvim
 %dir %{_datadir}/nvim/site
 %dir %{_datadir}/nvim/site/ftdetect
 %dir %{_datadir}/nvim/site/ftplugin
 %dir %{_datadir}/nvim/site/syntax
 %dir %{_datadir}/nvim/site/compiler/
 
-%files doc
-%dir %{_datadir}/ghostty/doc
-%{_datadir}/ghostty/doc/ghostty.1.html
-%{_datadir}/ghostty/doc/ghostty.1.md
-%{_datadir}/ghostty/doc/ghostty.5.html
-%{_datadir}/ghostty/doc/ghostty.5.md
-
-%files bash-completion
-%{_datadir}/bash-completion/completions/ghostty.bash
-%{_datadir}/ghostty/shell-integration/bash/
-
-%files fish-completion
-%dir %{_datadir}/fish
-%dir %{_datadir}/fish/vendor_completions.d
-%{_datadir}/fish/vendor_completions.d/ghostty.fish
-%{_datadir}/ghostty/shell-integration/fish/
-
-%files zsh-completion
-%{_datadir}/zsh/site-functions/_ghostty
-%{_datadir}/ghostty/shell-integration/zsh/
-
 %files vim
-%dir %{_datadir}/vim
-%dir %{_datadir}/vim/vimfiles
-%dir %{_datadir}/vim/vimfiles/ftdetect
-%dir %{_datadir}/vim/vimfiles/ftplugin
-%dir %{_datadir}/vim/vimfiles/syntax
-%dir %{_datadir}/vim/vimfiles/compiler
 %{_datadir}/vim/vimfiles/ftdetect/ghostty.vim
 %{_datadir}/vim/vimfiles/ftplugin/ghostty.vim
 %{_datadir}/vim/vimfiles/syntax/ghostty.vim
 %{_datadir}/vim/vimfiles/compiler/ghostty.vim
+
+%files systemd
+%{_datadir}/systemd/user
+%{_datadir}/systemd/user/app-com.mitchellh.ghostty.service
 
 %files terminfo
 %if 0%{?fedora} < 42
