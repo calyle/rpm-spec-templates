@@ -1,6 +1,5 @@
 ## Package List
 
-- [wps-office-fix](wps-office-fix/wps-office-fix)
 - [mise](tools/mise)
 - [usage](tools/usage)
 - [zellij](tools/zellij)
