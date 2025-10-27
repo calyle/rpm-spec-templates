@@ -1,7 +1,7 @@
 project name,package name,repo name,author,latest version,mode,branch
 wps-office-fix,wps-office-fix,wps-office-fix,calyle,v1.0.4,release,main
 tools,mise,mise,jdx,v2025.10.18,release,main
-tools,usage,usage,jdx,v2.3.2,release,main
+tools,usage,usage,jdx,v2.5.1,release,main
 tools,zellij,zellij,zellij-org,v0.43.1,release,main
 tools,wezterm,wezterm,wezterm,64f2907,commit,main
 network,sing-box,sing-box,SagerNet,v1.12.10,release,main
