@@ -67,6 +67,8 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 source "$HOME/.cargo/env"
 # build release
 cargo build --release
+RUSTFLAGS='-C strip=symbols' cargo tree --workspace --edges no-build,no-dev,no-proc-macro --no-dedupe --target all \
+--prefix none --format '{l}: {p}' | sort -u | sed -e "s: ($(pwd)[^)]*)::g" -e 's: / :/:g' -e 's:/: OR :g' > LICENSE.dependencies
 ./target/release/%{name} --completions bash > target/%{name}
 ./target/release/%{name} --completions zsh  > target/_%{name}
 ./target/release/%{name} --completions fish > target/%{name}.fish
@@ -80,7 +82,7 @@ install -Dm644  -T target/%{name}.fish    %{buildroot}%{_datadir}/fish/vendor_co
 
 
 %files
-%license LICENSE
+%license LICENSE LICENSE.dependencies
 %{_bindir}/%{name}
 
 %files bash-completion
