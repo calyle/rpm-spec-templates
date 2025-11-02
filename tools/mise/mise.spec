@@ -105,10 +105,10 @@ Zsh setup script for %{name}
 # install toolchain
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 source "$HOME/.cargo/env"
-cargo install cargo-license
 # build release
 cargo build --profile release --bin mise
-cargo license --color never > LICENSE.dependencies
+RUSTFLAGS='-C strip=symbols' cargo tree --workspace --edges no-build,no-dev,no-proc-macro --no-dedupe --target all \
+--prefix none --format '{l}: {p}' | sort -u | sed -e "s: ($(pwd)[^)]*)::g" -e 's: / :/:g' -e 's:/: OR :g' > LICENSE.dependencies
 ./target/release/%{pkgname} completion zsh  > target/_%{pkgname}
 ./target/release/%{pkgname} completion bash > target/%{pkgname}
 ./target/release/%{pkgname} completion fish > target/%{pkgname}.fish
