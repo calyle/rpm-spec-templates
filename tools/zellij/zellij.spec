@@ -122,6 +122,8 @@ mv -v target/wasm32-wasip1/release/*.wasm zellij-utils/assets/plugins/
 
 # Build zellij proper
 cargo --offline build --release --features unstable
+RUSTFLAGS='-C strip=symbols' cargo tree --workspace --edges no-build,no-dev,no-proc-macro --no-dedupe --target all \
+--prefix none --format '{l}: {p}' | sort -u | sed -e "s: ($(pwd)[^)]*)::g" -e 's: / :/:g' -e 's:/: OR :g' > LICENSE.dependencies
 
 for shell in "zsh" "bash" "fish"
 do
@@ -151,7 +153,7 @@ cp -av example/themes %{buildroot}%{_datadir}/%{name}
 
 
 %files
-%license LICENSE.md
+%license LICENSE.md LICENSE.dependencies
 %doc README.md docs/ARCHITECTURE.md docs/MANPAGE.md docs/TERMINOLOGY.md docs/THIRD_PARTY_INSTALL.md
 %{_bindir}/%{name}
 %dir %{_datadir}/%{name}
