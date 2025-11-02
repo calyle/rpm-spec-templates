@@ -110,6 +110,8 @@ source "$HOME/.cargo/env"
 export YAZI_GEN_COMPLETIONS=true
 export VERGEN_GIT_SHA=%{vergen_git_sha}
 cargo build --release --locked
+RUSTFLAGS='-C strip=symbols' cargo tree --workspace --edges no-build,no-dev,no-proc-macro --no-dedupe --target all \
+--prefix none --format '{l}: {p}' | sort -u | sed -e "s: ($(pwd)[^)]*)::g" -e 's: / :/:g' -e 's:/: OR :g' > LICENSE.dependencies
 
 
 %install
@@ -138,7 +140,7 @@ cargo test --all
 
 
 %files
-%license LICENSE LICENSE-ICONS
+%license LICENSE LICENSE-ICONS LICENSE.dependencies
 %doc README.md
 %{_bindir}/%{name}
 %{_bindir}/ya
