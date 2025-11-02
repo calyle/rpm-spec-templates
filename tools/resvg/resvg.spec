@@ -89,12 +89,12 @@ This package contains development files.
 
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
 source "$HOME/.cargo/env"
-cargo install cargo-license
 
 %build
 source "$HOME/.cargo/env"
 cargo build --release --all-features --all
-cargo license --color never > LICENSE.dependencies
+RUSTFLAGS='-C strip=symbols' cargo tree --workspace --edges no-build,no-dev,no-proc-macro --no-dedupe --target all \
+--prefix none --format '{l}: {p}' | sort -u | sed -e "s: ($(pwd)[^)]*)::g" -e 's: / :/:g' -e 's:/: OR :g' > LICENSE.dependencies
 
 %install
 install -Dspm 0755 ./target/release/%{name} %{buildroot}%{_bindir}/%{name}
